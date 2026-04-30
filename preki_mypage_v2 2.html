@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>プレキコンサルティング | 採用マイページ 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0e1f3d;
+  --navy2: #162c55;
+  --navy3: #1e3a6e;
+  --gold: #b89a3a;
+  --gold2: #c8aa4a;
+  --gold-light: #eed98a;
+  --bg: #f4f5f8;
+  --bg2: #edf0f5;
+  --text: #1a1f2e;
+  --muted: #6b7a99;
+  --border: #dde3f0;
+  --white: #ffffff;
+  --green: #2e7d55;
+  --green-bg: #e6f4ed;
+  --orange: #c05800;
+  --orange-bg: #fff1e6;
+  --red: #c0222a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); font-size: 13px; }
+a { text-decoration: none; }
+
+/* ===== LOGIN ===== */
+#loginScreen {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+#loginScreen::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 60%, rgba(184,154,58,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(30,58,110,0.8) 0%, transparent 60%);
+}
+.login-bg-grid {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.login-panel {
+  position: relative; z-index: 1;
+  width: 440px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(200,170,74,0.25);
+  border-radius: 2px;
+  padding: 52px 48px 44px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.login-header { text-align: center; margin-bottom: 40px; }
+.login-wordmark {
+  display: flex; align-items: center; gap: 10px;
+  justify-content: center; margin-bottom: 24px;
+}
+.login-pk {
+  width: 40px; height: 40px;
+  background: var(--gold2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: #fff; letter-spacing: -0.5px;
+}
+.login-brand-text { text-align: left; }
+.login-brand-name { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 2px; line-height: 1.3; }
+.login-brand-sub { font-size: 9.5px; color: rgba(255,255,255,0.4); letter-spacing: 3px; margin-top: 2px; }
+.login-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(200,170,74,0.4), transparent); margin-bottom: 24px; }
+.login-title { font-size: 20px; font-weight: 700; color: #fff; font-family: 'Shippori Mincho', serif; letter-spacing: 1px; }
+.login-subtitle { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 6px; letter-spacing: 1px; }
+.login-field { margin-bottom: 20px; }
+.login-label {
+  display: block; font-size: 10px; color: rgba(255,255,255,0.5);
+  letter-spacing: 2px; margin-bottom: 8px; font-weight: 500;
+  text-transform: uppercase;
+}
+.login-input {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 2px;
+  padding: 13px 16px;
+  font-size: 14px; color: #fff;
+  font-family: inherit; outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  letter-spacing: 0.5px;
+}
+.login-input:focus { border-color: var(--gold2); background: rgba(255,255,255,0.1); }
+.login-input::placeholder { color: rgba(255,255,255,0.2); font-size: 13px; }
+.login-error {
+  background: rgba(192,34,42,0.15);
+  border: 1px solid rgba(192,34,42,0.4);
+  color: #ff9999; font-size: 12px;
+  padding: 10px 14px; border-radius: 2px;
+  margin-bottom: 16px; display: none;
+}
+.login-error.show { display: block; }
+.login-submit {
+  width: 100%; padding: 15px;
+  background: var(--gold2); color: #fff;
+  border: none; border-radius: 2px;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer; font-family: inherit;
+  letter-spacing: 3px; margin-top: 4px;
+  transition: background 0.2s, transform 0.15s;
+}
+.login-submit:hover { background: var(--gold); transform: translateY(-1px); }
+.login-submit:active { transform: translateY(0); }
+.login-hint { text-align: center; font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 22px; line-height: 1.8; }
+.login-hint a { color: var(--gold-light); opacity: 0.7; }
+
+/* ===== MAIN ===== */
+#mainApp { display: none; }
+#mainApp.show { display: block; }
+
+/* TOPBAR */
+.topbar {
+  height: 54px;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 36px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+}
+.topbar-left { display: flex; align-items: center; gap: 12px; }
+.topbar-pk {
+  width: 30px; height: 30px; background: var(--gold2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff; letter-spacing: -0.5px;
+}
+.topbar-brand { line-height: 1.25; }
+.topbar-brand-name { font-size: 12px; font-weight: 700; color: #fff; letter-spacing: 1.5px; }
+.topbar-brand-sub { font-size: 9px; color: rgba(255,255,255,0.35); letter-spacing: 2.5px; }
+.topbar-right { display: flex; align-items: center; gap: 6px; }
+.topbar-link { color: rgba(255,255,255,0.5); font-size: 11.5px; padding: 6px 12px; border-radius: 2px; transition: color 0.2s, background 0.2s; cursor: pointer; }
+.topbar-link:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.topbar-corp { color: var(--gold-light) !important; }
+.topbar-sep { color: rgba(255,255,255,0.15); font-size: 10px; }
+.topbar-logout { color: var(--gold2) !important; font-weight: 700; border: 1px solid rgba(200,170,74,0.3); }
+
+/* SUB NAV */
+.subnav {
+  background: var(--white);
+  border-bottom: 2px solid var(--navy);
+  padding: 0 36px;
+  display: flex; align-items: stretch;
+  overflow-x: auto;
+}
+.subnav-item {
+  padding: 0 18px; height: 44px;
+  display: flex; align-items: center;
+  font-size: 12.5px; color: var(--muted);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  white-space: nowrap; cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  gap: 6px;
+}
+.subnav-item:hover { color: var(--navy); }
+.subnav-item.active { color: var(--navy); border-bottom-color: var(--gold2); font-weight: 700; }
+.subnav-count {
+  background: var(--red); color: #fff;
+  font-size: 9px; font-weight: 700;
+  border-radius: 10px; padding: 1px 6px; line-height: 1.6;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(130deg, var(--navy) 0%, var(--navy2) 55%, #1a3970 100%);
+  padding: 28px 36px 24px;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: '鍬農侑祐';
+  position: absolute; right: -10px; bottom: -30px;
+  font-family: 'Shippori Mincho', serif;
+  font-size: 120px; font-weight: 700;
+  color: rgba(255,255,255,0.02); letter-spacing: -2px;
+  pointer-events: none; line-height: 1;
+}
+.hero-inner { max-width: 1020px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.hero-left {}
+.hero-tag { font-size: 9px; color: var(--gold-light); letter-spacing: 4px; margin-bottom: 10px; opacity: 0.8; font-family: 'DM Mono', monospace; }
+.hero-name { font-size: 26px; font-weight: 700; color: #fff; font-family: 'Shippori Mincho', serif; letter-spacing: 0.5px; margin-bottom: 12px; }
+.hero-name em { color: var(--gold-light); font-style: normal; }
+.hero-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.hero-chip {
+  font-size: 11px; color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 2px;
+  padding: 4px 10px; display: flex; align-items: center; gap: 5px;
+}
+.hero-chip-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold2); }
+.hero-right { display: flex; gap: 14px; align-items: center; flex-shrink: 0; }
+.id-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(200,170,74,0.35);
+  border-radius: 2px;
+  padding: 14px 20px; text-align: center; min-width: 170px;
+}
+.id-card-label { font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 3px; margin-bottom: 6px; font-family: 'DM Mono', monospace; }
+.id-card-num { font-size: 20px; font-weight: 500; color: var(--gold-light); letter-spacing: 3px; font-family: 'DM Mono', monospace; }
+.id-card-url { font-size: 9.5px; color: rgba(255,255,255,0.25); margin-top: 5px; font-family: 'DM Mono', monospace; }
+.corp-btn-hero {
+  background: rgba(200,170,74,0.15);
+  border: 1px solid rgba(200,170,74,0.5);
+  color: var(--gold-light);
+  font-size: 11px; font-weight: 700;
+  padding: 10px 16px; border-radius: 2px;
+  cursor: pointer; text-align: center;
+  transition: background 0.2s;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  white-space: nowrap; letter-spacing: 0.5px;
+}
+.corp-btn-hero:hover { background: rgba(200,170,74,0.28); }
+.corp-btn-hero .corp-icon { font-size: 18px; }
+
+/* MAIN LAYOUT */
+.main-wrap { max-width: 1020px; margin: 0 auto; padding: 24px 36px; display: grid; grid-template-columns: 1fr 280px; gap: 20px; align-items: start; }
+
+/* PAGE SECTIONS */
+.page-section { display: none; }
+.page-section.active { display: block; }
+
+/* CARDS */
+.card { background: var(--white); border-radius: 2px; border: 1px solid var(--border); margin-bottom: 16px; overflow: hidden; }
+.card-header { padding: 14px 20px; border-bottom: 1px solid #eef1f8; display: flex; align-items: center; justify-content: space-between; }
+.card-title { font-size: 12.5px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 8px; }
+.card-title-icon { width: 22px; height: 22px; background: var(--navy); border-radius: 2px; display: flex; align-items: center; justify-content: center; }
+.card-badge { font-size: 10px; background: #edf0fb; color: var(--navy2); border-radius: 2px; padding: 3px 10px; font-weight: 500; letter-spacing: 0.5px; }
+.card-link { font-size: 11.5px; color: var(--navy2); cursor: pointer; }
+.card-link:hover { text-decoration: underline; }
+.card-body { padding: 16px 20px; }
+
+/* STEPS */
+.step-list { display: flex; flex-direction: column; }
+.step-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid #f0f2f9; position: relative; }
+.step-item:last-child { border-bottom: none; }
+.step-item.current { background: #fffbf3; margin: 0 -20px; padding: 14px 20px; border-left: 3px solid var(--gold2); }
+.step-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.step-num.done { background: var(--navy); color: #fff; }
+.step-num.cur { background: var(--gold2); color: #fff; }
+.step-num.fut { background: #edf0f7; color: #bcc; }
+.step-info { flex: 1; min-width: 0; }
+.step-name { font-size: 12.5px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+.step-name.muted { color: #c0c8dd; font-weight: 400; }
+.step-desc { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+.step-date { font-size: 10.5px; color: var(--gold); margin-top: 3px; font-weight: 500; }
+.step-tag { font-size: 10.5px; padding: 3px 10px; border-radius: 20px; font-weight: 500; white-space: nowrap; align-self: center; }
+.tag-done { background: var(--green-bg); color: var(--green); }
+.tag-cur { background: var(--orange-bg); color: var(--orange); }
+.tag-wait { background: #f2f4fb; color: #a0aabf; }
+
+/* PROGRESS */
+.prog-bar-bg { background: #e8ecf8; border-radius: 2px; height: 5px; }
+.prog-bar-fill { background: linear-gradient(90deg, var(--navy), var(--gold2)); border-radius: 2px; height: 5px; transition: width 0.8s ease; }
+
+/* NOTICES */
+.notice-list { display: flex; flex-direction: column; gap: 10px; }
+.notice-item { display: flex; gap: 12px; padding: 14px; background: #f8f9fd; border-left: 3px solid var(--navy2); }
+.notice-icon { width: 24px; height: 24px; background: var(--navy2); border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.notice-body { flex: 1; min-width: 0; }
+.notice-title { font-size: 12.5px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.notice-desc { font-size: 11.5px; color: var(--muted); line-height: 1.6; }
+.notice-date { font-size: 10.5px; color: #aab; margin-top: 4px; }
+.new-badge { background: var(--red); color: #fff; font-size: 9px; border-radius: 2px; padding: 1px 5px; margin-left: 6px; font-weight: 700; vertical-align: middle; }
+
+/* DOCS */
+.doc-list { display: flex; flex-direction: column; gap: 8px; }
+.doc-item { display: flex; align-items: center; gap: 12px; padding: 11px 14px; background: #f8f9fd; border: 1px solid #edf0f7; }
+.doc-icon { width: 34px; height: 34px; background: #e6eaf5; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--navy2); flex-shrink: 0; font-family: 'DM Mono', monospace; }
+.doc-name { font-size: 12.5px; font-weight: 500; color: var(--navy); flex: 1; }
+.doc-tag { font-size: 10.5px; padding: 3px 10px; border-radius: 2px; font-weight: 500; }
+.doc-done { background: var(--green-bg); color: var(--green); }
+.doc-todo { background: var(--orange-bg); color: var(--orange); }
+
+/* ES MODAL */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 500;
+  background: rgba(14,31,61,0.7); backdrop-filter: blur(4px);
+  align-items: flex-start; justify-content: center;
+  padding: 40px 20px; overflow-y: auto;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: #fff; width: 720px; max-width: 100%;
+  border-radius: 2px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+.modal-head {
+  background: var(--navy); padding: 20px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.modal-head-title { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+.modal-head-sub { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 3px; }
+.modal-close {
+  width: 30px; height: 30px;
+  background: rgba(255,255,255,0.1); color: #fff; border: none;
+  border-radius: 2px; cursor: pointer; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-close:hover { background: rgba(255,255,255,0.2); }
+.modal-body { padding: 28px; }
+.modal-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+.modal-tab {
+  padding: 8px 18px; font-size: 12px; color: var(--muted);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+  cursor: pointer; transition: color 0.2s;
+}
+.modal-tab.active { color: var(--navy); border-bottom-color: var(--gold2); font-weight: 700; }
+.es-q { margin-bottom: 28px; }
+.es-q-num {
+  display: inline-block;
+  width: 22px; height: 22px; background: var(--navy); color: #fff;
+  border-radius: 2px; font-size: 11px; font-weight: 700;
+  text-align: center; line-height: 22px; margin-bottom: 10px;
+}
+.es-q-text { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.es-q-sub { font-size: 11.5px; color: var(--muted); margin-bottom: 10px; line-height: 1.6; }
+.es-textarea {
+  width: 100%;
+  min-height: 140px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 12px 14px;
+  font-size: 13px; color: var(--text);
+  font-family: inherit; resize: vertical;
+  outline: none; transition: border-color 0.2s; line-height: 1.7;
+}
+.es-textarea:focus { border-color: var(--gold2); }
+.char-count { text-align: right; font-size: 11px; color: var(--muted); margin-top: 5px; font-family: 'DM Mono', monospace; }
+.char-count.over { color: var(--red); }
+.es-save-btn {
+  background: var(--gold2); color: #fff; border: none;
+  padding: 13px 28px; border-radius: 2px; font-size: 13px; font-weight: 700;
+  cursor: pointer; font-family: inherit; letter-spacing: 0.5px;
+  transition: background 0.2s;
+}
+.es-save-btn:hover { background: var(--gold); }
+.es-draft-btn {
+  background: #fff; color: var(--navy); border: 1px solid var(--border);
+  padding: 13px 20px; border-radius: 2px; font-size: 13px; font-weight: 500;
+  cursor: pointer; font-family: inherit;
+  transition: background 0.2s;
+}
+.es-draft-btn:hover { background: var(--bg); }
+
+/* SEMINAR MODAL */
+.seminar-item {
+  border: 1px solid var(--border); border-radius: 2px;
+  margin-bottom: 12px; overflow: hidden;
+}
+.seminar-head { background: #f8f9fd; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
+.seminar-title { font-size: 13px; font-weight: 700; color: var(--navy); }
+.seminar-tag { font-size: 10px; padding: 3px 10px; border-radius: 2px; font-weight: 500; }
+.s-open { background: var(--green-bg); color: var(--green); }
+.s-full { background: #f2f4fb; color: #a0aabf; }
+.s-reserved { background: var(--orange-bg); color: var(--orange); }
+.seminar-body { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.seminar-info { font-size: 12px; color: var(--muted); line-height: 1.7; flex: 1; }
+.seminar-info strong { color: var(--navy); font-weight: 700; }
+.seminar-capacity { font-size: 11px; color: var(--muted); text-align: right; white-space: nowrap; }
+.seminar-capacity b { color: var(--navy); font-size: 15px; font-family: 'DM Mono', monospace; }
+.reserve-btn {
+  padding: 9px 20px; border-radius: 2px; font-size: 12px; font-weight: 700;
+  cursor: pointer; font-family: inherit; border: none;
+  white-space: nowrap; transition: background 0.2s, transform 0.15s; letter-spacing: 0.5px;
+}
+.reserve-btn.can { background: var(--navy2); color: #fff; }
+.reserve-btn.can:hover { background: var(--navy3); transform: translateY(-1px); }
+.reserve-btn.reserved { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); cursor: default; }
+.reserve-btn.full { background: #f2f4fb; color: #a0aabf; cursor: not-allowed; }
+
+/* PROFILE SIDEBAR */
+.profile-card { background: var(--white); border: 1px solid var(--border); margin-bottom: 14px; overflow: hidden; }
+.profile-top { background: var(--navy); padding: 22px 20px; text-align: center; }
+.avatar {
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--gold2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; color: #fff;
+  margin: 0 auto 10px;
+  border: 2px solid rgba(200,170,74,0.4);
+  font-family: 'Shippori Mincho', serif; letter-spacing: 1px;
+}
+.profile-name { font-size: 15px; font-weight: 700; color: #fff; font-family: 'Shippori Mincho', serif; margin-bottom: 3px; }
+.profile-sub { font-size: 11px; color: rgba(255,255,255,0.45); }
+.profile-body { padding: 12px 16px; }
+.profile-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f3fa; font-size: 12px; }
+.profile-row:last-child { border-bottom: none; }
+.profile-label { color: var(--muted); }
+.profile-val { color: var(--navy); font-weight: 500; }
+.profile-edit { width: 100%; padding: 8px; background: #fff; color: var(--navy); border: 1px solid var(--border); border-radius: 2px; font-size: 11.5px; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+.profile-edit:hover { background: var(--bg); }
+
+/* BUTTONS */
+.btn-primary {
+  display: block; width: 100%; padding: 12px;
+  background: var(--navy); color: #fff; border: none; border-radius: 2px;
+  font-size: 12.5px; font-weight: 700; cursor: pointer;
+  margin-top: 8px; font-family: inherit;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--navy3); }
+.btn-gold {
+  display: block; width: 100%; padding: 12px;
+  background: var(--gold2); color: #fff; border: none; border-radius: 2px;
+  font-size: 12.5px; font-weight: 700; cursor: pointer;
+  margin-top: 8px; font-family: inherit;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: background 0.2s;
+}
+.btn-gold:hover { background: var(--gold); }
+.btn-outline {
+  display: block; width: 100%; padding: 12px;
+  background: #fff; color: var(--navy); border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 12.5px; font-weight: 500; cursor: pointer;
+  margin-top: 8px; font-family: inherit;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: background 0.2s;
+}
+.btn-outline:hover { background: var(--bg); }
+.btn-corp {
+  display: block; width: 100%; padding: 12px;
+  background: linear-gradient(135deg, var(--gold2), #a07a20); color: #fff; border: none;
+  border-radius: 2px;
+  font-size: 12.5px; font-weight: 700; cursor: pointer;
+  margin-top: 8px; font-family: inherit;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: opacity 0.2s; letter-spacing: 0.5px;
+}
+.btn-corp:hover { opacity: 0.88; }
+
+/* DEADLINE */
+.deadline-box { background: #fffcf0; border: 1px solid #f0d060; padding: 14px 16px; margin-bottom: 14px; }
+.deadline-label { font-size: 9.5px; color: #a08020; letter-spacing: 2px; margin-bottom: 5px; font-weight: 700; text-transform: uppercase; }
+.deadline-date { font-size: 22px; font-weight: 700; color: #9a7010; font-family: 'DM Mono', monospace; }
+.deadline-sub { font-size: 10.5px; color: #b09030; margin-top: 3px; }
+
+/* URL BOX */
+.url-box { background: #fff; border: 1px solid var(--border); padding: 14px 16px; margin-bottom: 14px; }
+.url-label { font-size: 9.5px; color: var(--muted); letter-spacing: 2px; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; }
+.url-val { font-size: 11px; color: var(--navy2); font-family: 'DM Mono', monospace; background: #f0f4fb; padding: 7px 10px; word-break: break-all; }
+
+/* CORP SITE CARD */
+.corp-card { background: linear-gradient(135deg, #0e1f3d 0%, #1a3060 100%); border: 1px solid rgba(200,170,74,0.3); margin-bottom: 14px; padding: 16px; position: relative; overflow: hidden; }
+.corp-card::before { content: ''; position: absolute; right: -20px; top: -20px; width: 80px; height: 80px; border-radius: 50%; background: rgba(200,170,74,0.1); }
+.corp-card-label { font-size: 9.5px; color: var(--gold-light); letter-spacing: 2px; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; opacity: 0.8; }
+.corp-card-name { font-size: 14px; font-weight: 700; color: #fff; font-family: 'Shippori Mincho', serif; margin-bottom: 6px; }
+.corp-card-desc { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 14px; }
+.corp-card-btn { background: var(--gold2); color: #fff; border: none; padding: 10px 18px; font-size: 11.5px; font-weight: 700; cursor: pointer; font-family: inherit; letter-spacing: 1px; transition: background 0.2s; display: flex; align-items: center; gap: 6px; }
+.corp-card-btn:hover { background: var(--gold); }
+
+/* FOOTER */
+.footer { background: var(--navy); color: rgba(255,255,255,0.35); font-size: 11px; text-align: center; padding: 24px 40px; margin-top: 16px; line-height: 2; }
+.footer a { color: var(--gold2); opacity: 0.7; }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 30px; right: 30px; z-index: 9000;
+  background: var(--navy); color: #fff; padding: 14px 22px;
+  border-left: 4px solid var(--gold2); font-size: 13px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  transform: translateY(20px); opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+  pointer-events: none;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* CORP SITE OVERLAY */
+#corpSiteOverlay {
+  display: none; position: fixed; inset: 0; z-index: 8000;
+  background: #f0ebe0;
+}
+#corpSiteOverlay.open { display: block; }
+.corp-site-header {
+  background: #2a1a08; color: #fff;
+  padding: 0 48px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.corp-site-logo { display: flex; align-items: center; gap: 14px; }
+.corp-site-mark { width: 36px; height: 36px; background: #8a6020; display: flex; align-items: center; justify-content: center; }
+.corp-site-mark svg { width: 20px; height: 20px; }
+.corp-site-brand { font-size: 14px; font-weight: 700; letter-spacing: 2px; font-family: 'Shippori Mincho', serif; }
+.corp-site-brand-en { font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 3px; margin-top: 2px; }
+.corp-site-close { background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 8px 16px; font-size: 12px; cursor: pointer; font-family: inherit; letter-spacing: 1px; }
+.corp-site-close:hover { background: rgba(255,255,255,0.2); }
+.corp-site-nav { background: #3a2510; padding: 0 48px; display: flex; height: 44px; align-items: stretch; }
+.corp-site-nav a { color: rgba(255,255,255,0.6); font-size: 12px; padding: 0 16px; display: flex; align-items: center; transition: color 0.2s; }
+.corp-site-nav a:hover { color: #fff; }
+.corp-site-hero {
+  background: linear-gradient(135deg, #1a0f05 0%, #3d2210 50%, #5a3318 100%);
+  padding: 80px 48px; text-align: center; position: relative; overflow: hidden;
+}
+.corp-site-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(184,150,50,0.12), transparent);
+}
+.corp-hero-tag { font-size: 10px; color: #c8a84b; letter-spacing: 4px; margin-bottom: 16px; font-family: 'DM Mono', monospace; }
+.corp-hero-title { font-family: 'Shippori Mincho', serif; font-size: 42px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 16px; }
+.corp-hero-title span { color: #c8a84b; }
+.corp-hero-sub { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.8; max-width: 560px; margin: 0 auto 32px; }
+.corp-cta-btn { display: inline-block; background: #c8a84b; color: #fff; padding: 14px 36px; font-size: 13px; font-weight: 700; letter-spacing: 2px; cursor: pointer; border: none; font-family: inherit; transition: background 0.2s; }
+.corp-cta-btn:hover { background: #a88830; }
+.corp-site-body { max-width: 960px; margin: 0 auto; padding: 48px; }
+.corp-section-title {
+  font-size: 22px; font-weight: 700; font-family: 'Shippori Mincho', serif;
+  color: #2a1a08; margin-bottom: 8px;
+  padding-bottom: 12px; border-bottom: 2px solid #c8a84b;
+}
+.corp-section-sub { font-size: 13px; color: #8a7055; margin-bottom: 28px; line-height: 1.7; }
+.corp-biz-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 48px; }
+.corp-biz-card { background: #fff; border: 1px solid #e0d8cc; padding: 24px; position: relative; overflow: hidden; }
+.corp-biz-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--clr, #c8a84b); }
+.corp-biz-icon { font-size: 28px; margin-bottom: 12px; }
+.corp-biz-name { font-size: 14px; font-weight: 700; color: #2a1a08; margin-bottom: 6px; font-family: 'Shippori Mincho', serif; }
+.corp-biz-desc { font-size: 12px; color: #7a6a55; line-height: 1.7; }
+.corp-biz-tag { display: inline-block; font-size: 10px; background: #f5efe0; color: #8a6a30; padding: 2px 8px; margin-top: 8px; letter-spacing: 1px; }
+.corp-data-row { display: flex; gap: 16px; margin-bottom: 48px; }
+.corp-data-item { flex: 1; background: #fff; border: 1px solid #e0d8cc; padding: 20px; text-align: center; }
+.corp-data-num { font-size: 32px; font-weight: 700; color: #8a6020; font-family: 'DM Mono', monospace; }
+.corp-data-unit { font-size: 12px; color: #c8a84b; }
+.corp-data-label { font-size: 11px; color: #8a7055; margin-top: 4px; }
+.corp-recruit-banner {
+  background: linear-gradient(135deg, #1a0f05, #3d2210);
+  padding: 32px; text-align: center; cursor: pointer;
+}
+.corp-recruit-banner-title { font-family: 'Shippori Mincho', serif; font-size: 20px; color: #fff; margin-bottom: 8px; }
+.corp-recruit-banner-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+.corp-recruit-btn { display: inline-block; background: #c8a84b; color: #fff; padding: 12px 32px; font-size: 12px; font-weight: 700; letter-spacing: 2px; }
+.corp-site-footer { background: #2a1a08; color: rgba(255,255,255,0.35); text-align: center; padding: 24px; font-size: 11px; line-height: 2; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c0c8e0; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div id="loginScreen">
+  <div class="login-bg-grid"></div>
+  <div class="login-panel">
+    <div class="login-header">
+      <div class="login-wordmark">
+        <div class="login-pk">PK</div>
+        <div class="login-brand-text">
+          <div class="login-brand-name">PREKI CONSULTING</div>
+          <div class="login-brand-sub">RECRUITING MYPAGE 2027</div>
+        </div>
+      </div>
+      <div class="login-divider"></div>
+      <div class="login-title">マイページにログイン</div>
+      <div class="login-subtitle">APPLICANT LOGIN</div>
+    </div>
+    <div class="login-error" id="loginError">応募IDまたはパスワードが正しくありません。</div>
+    <div class="login-field">
+      <label class="login-label">応募 ID</label>
+      <input type="text" class="login-input" id="loginId" placeholder="例：PK-270847" autocomplete="off">
+    </div>
+    <div class="login-field">
+      <label class="login-label">パスワード</label>
+      <input type="password" class="login-input" id="loginPass" placeholder="登録時のパスワード">
+    </div>
+    <button class="login-submit" onclick="doLogin()">ログイン</button>
+    <div class="login-hint">
+      ※ ログイン情報は登録メールアドレスに送付済みです<br>
+      パスワードをお忘れの方は <a href="#">こちら</a>からリセットできます
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="mainApp">
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-pk">PK</div>
+    <div class="topbar-brand">
+      <div class="topbar-brand-name">PREKI CONSULTING</div>
+      <div class="topbar-brand-sub">RECRUITING MYPAGE 2027</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <span class="topbar-link topbar-corp" onclick="openCorpSite()" style="cursor:pointer;">🌿 企業サイトを見る</span>
+    <span class="topbar-sep">|</span>
+    <span class="topbar-link">よくある質問</span>
+    <span class="topbar-sep">|</span>
+    <span class="topbar-link">お問い合わせ</span>
+    <span class="topbar-sep">|</span>
+    <span class="topbar-link topbar-logout" onclick="doLogout()">ログアウト</span>
+  </div>
+</div>
+
+<!-- SUBNAV -->
+<div class="subnav">
+  <div class="subnav-item active" onclick="switchTab('home', this)">マイページ TOP</div>
+  <div class="subnav-item" onclick="openESModal()">
+    エントリーシート
+    <span class="subnav-count">作成中</span>
+  </div>
+  <div class="subnav-item" onclick="switchTab('schedule', this)">選考スケジュール</div>
+  <div class="subnav-item" onclick="openSeminarModal()">説明会・セミナー</div>
+  <div class="subnav-item" onclick="switchTab('notices', this)">
+    お知らせ
+    <span class="subnav-count">2</span>
+  </div>
+  <div class="subnav-item" onclick="switchTab('faq', this)">Q&amp;A</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">WELCOME BACK — 2027 RECRUITMENT</div>
+      <div class="hero-name"><em>鍬農 侑祐</em> さんのマイページ</div>
+      <div class="hero-chips">
+        <div class="hero-chip"><div class="hero-chip-dot"></div>総合職</div>
+        <div class="hero-chip"><div class="hero-chip-dot"></div>花壇コンサルタント</div>
+        <div class="hero-chip"><div class="hero-chip-dot"></div>最終ログイン：2026年4月26日 14:23</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div id-card class="id-card">
+        <div class="id-card-label">APPLICANT ID</div>
+        <div class="id-card-num">PK-270847</div>
+        <div class="id-card-url">preki-recruit.jp/my/PK-270847</div>
+      </div>
+      <div class="corp-btn-hero" onclick="openCorpSite()">
+        <span class="corp-icon">🌿</span>
+        企業サイトへ
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN WRAP -->
+<div class="main-wrap">
+  <!-- LEFT -->
+  <div>
+
+    <!-- HOME section -->
+    <div id="sec-home" class="page-section active">
+
+      <!-- 選考フロー -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-title-icon">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#fff" stroke-width="1.3"/><path d="M3.5 6.5l1.5 1.5 3.5-4" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            あなたの選考フロー
+          </div>
+          <span class="card-badge">総合職 / 花壇コンサルタント</span>
+        </div>
+        <div class="card-body">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px; font-size:11px; color:var(--muted);">
+            選考進捗：3 / 7 ステップ
+            <div class="prog-bar-bg" style="flex:1;"><div class="prog-bar-fill" style="width:43%;"></div></div>
+            <span style="color:var(--gold2); font-weight:700; font-family:'DM Mono', monospace;">43%</span>
+          </div>
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-num done">1</div>
+              <div class="step-info">
+                <div class="step-name">エントリー・プレエントリー</div>
+                <div class="step-desc">マイページ登録・プロフィール入力完了</div>
+                <div class="step-date">完了：2026年3月1日</div>
+              </div>
+              <span class="step-tag tag-done">完了</span>
+            </div>
+            <div class="step-item">
+              <div class="step-num done">2</div>
+              <div class="step-info">
+                <div class="step-name">会社説明会（オンライン）</div>
+                <div class="step-desc">第3回 2026年4月15日（水）参加済み</div>
+                <div class="step-date">完了：2026年4月15日</div>
+              </div>
+              <span class="step-tag tag-done">完了</span>
+            </div>
+            <div class="step-item current">
+              <div class="step-num cur">3</div>
+              <div class="step-info">
+                <div class="step-name" style="color:var(--gold);">エントリーシート提出</div>
+                <div class="step-desc">志望動機・自己PR・花壇コンサルタントとしての抱負（各800字以内）</div>
+                <div class="step-date">〆切：2026年5月10日（土）23:59</div>
+              </div>
+              <span class="step-tag tag-cur">提出中</span>
+            </div>
+            <div class="step-item">
+              <div class="step-num fut">4</div>
+              <div class="step-info">
+                <div class="step-name muted">Webテスト（玉手箱）</div>
+                <div class="step-desc" style="color:#c0c8dd;">ES通過後に受験IDをお送りします（自宅受験可）</div>
+              </div>
+              <span class="step-tag tag-wait">未実施</span>
+            </div>
+            <div class="step-item">
+              <div class="step-num fut">5</div>
+              <div class="step-info">
+                <div class="step-name muted">1次面接（オンライン）</div>
+                <div class="step-desc" style="color:#c0c8dd;">花壇コンサル部門担当者との面接（30分）</div>
+              </div>
+              <span class="step-tag tag-wait">未実施</span>
+            </div>
+            <div class="step-item">
+              <div class="step-num fut">6</div>
+              <div class="step-info">
+                <div class="step-name muted">グループディスカッション</div>
+                <div class="step-desc" style="color:#c0c8dd;">東京本社にて実施（大手町）</div>
+              </div>
+              <span class="step-tag tag-wait">未実施</span>
+            </div>
+            <div class="step-item">
+              <div class="step-num fut">7</div>
+              <div class="step-info">
+                <div class="step-name muted">最終面接（役員面接）</div>
+                <div class="step-desc" style="color:#c0c8dd;">代表取締役・役員との面接</div>
+              </div>
+              <span class="step-tag tag-wait">未実施</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- お知らせ -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-title-icon">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1.5" y="2.5" width="9" height="7" rx="1.5" stroke="#fff" stroke-width="1.3"/><path d="M4 5.5h4M4 7.5h2.5" stroke="#fff" stroke-width="1.1" stroke-linecap="round"/></svg>
+            </div>
+            重要なお知らせ
+          </div>
+          <span class="card-link" onclick="switchTab('notices', document.querySelector('.subnav-item:nth-child(5)'))">すべて見る →</span>
+        </div>
+        <div class="card-body">
+          <div class="notice-list">
+            <div class="notice-item" style="border-left-color:var(--red);">
+              <div class="notice-icon" style="background:var(--red);">
+                <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 2v4.5M6 9.5v.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </div>
+              <div class="notice-body">
+                <div class="notice-title">ESの提出期限について<span class="new-badge">NEW</span></div>
+                <div class="notice-desc">5月10日（土）23:59が提出期限です。システムメンテナンスにより23:00以降は接続しにくくなる可能性があります。早めの提出を推奨します。</div>
+                <div class="notice-date">2026年4月26日</div>
+              </div>
+            </div>
+            <div class="notice-item">
+              <div class="notice-icon">
+                <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="4.5" stroke="#fff" stroke-width="1.3"/><path d="M6 4v2l1.5 1.5" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>
+              </div>
+              <div class="notice-body">
+                <div class="notice-title">5月開催 花壇コンサル部門 先輩社員座談会のご案内<span class="new-badge">NEW</span></div>
+                <div class="notice-desc">花壇再開発・脚立コンサルティングの最前線で活躍する先輩社員と直接話せる座談会（各回10名限定）を開催します。</div>
+                <div class="notice-date">2026年4月20日</div>
+              </div>
+            </div>
+            <div class="notice-item">
+              <div class="notice-icon">
+                <svg width="12" height="12" viewBox="0 0 12 12"><rect x="1.5" y="2" width="9" height="8" rx="1" stroke="#fff" stroke-width="1.2"/><path d="M3.5 5h5M3.5 7h3" stroke="#fff" stroke-width="1" stroke-linecap="round"/></svg>
+              </div>
+              <div class="notice-body">
+                <div class="notice-title">2027年度採用 募集要項を更新しました</div>
+                <div class="notice-desc">花壇コンサルタント・空き地バリューアップ部門・八百屋JV推進職の詳細および配属予定部門を更新しました。</div>
+                <div class="notice-date">2026年4月10日</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 提出書類 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-title-icon">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="1" width="8" height="10" rx="1.5" stroke="#fff" stroke-width="1.3"/><path d="M4 5h4M4 7h2.5" stroke="#fff" stroke-width="1.1" stroke-linecap="round"/></svg>
+            </div>
+            提出書類の状況
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="doc-list">
+            <div class="doc-item">
+              <div class="doc-icon">ES</div>
+              <div class="doc-name">エントリーシート（3設問）</div>
+              <span class="doc-tag doc-todo">作成中</span>
+            </div>
+            <div class="doc-item">
+              <div class="doc-icon">写真</div>
+              <div class="doc-name">証明写真（デジタル提出）</div>
+              <span class="doc-tag doc-done">提出済</span>
+            </div>
+            <div class="doc-item">
+              <div class="doc-icon" style="background:#e0f0e6; color:var(--green);">成績</div>
+              <div class="doc-name">成績証明書（PDF）</div>
+              <span class="doc-tag doc-done">提出済</span>
+            </div>
+          </div>
+          <button class="btn-gold" style="margin-top:16px;" onclick="openESModal()">📝　ESを続きから入力する</button>
+        </div>
+      </div>
+
+    </div><!-- /sec-home -->
+
+    <!-- SCHEDULE section -->
+    <div id="sec-schedule" class="page-section">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">選考スケジュール</div>
+          <span class="card-badge">2026年度</span>
+        </div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:flex;gap:16px;align-items:stretch;padding:14px 0;border-bottom:1px solid #f0f3fa;">
+              <div style="width:80px;flex-shrink:0;text-align:center;">
+                <div style="font-size:10px;color:var(--muted);letter-spacing:1px;">5月</div>
+                <div style="font-size:22px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;">10</div>
+                <div style="font-size:9.5px;color:var(--muted);">SAT</div>
+              </div>
+              <div style="flex:1;border-left:3px solid var(--gold2);padding-left:16px;">
+                <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;">ES提出期限</div>
+                <div style="font-size:11.5px;color:var(--muted);line-height:1.6;">23:59締め切り。3設問（各800字以内）をマイページから提出してください。</div>
+                <div style="margin-top:8px;"><span style="font-size:10px;background:var(--orange-bg);color:var(--orange);padding:2px 8px;border-radius:2px;">要対応</span></div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:stretch;padding:14px 0;border-bottom:1px solid #f0f3fa;">
+              <div style="width:80px;flex-shrink:0;text-align:center;">
+                <div style="font-size:10px;color:var(--muted);letter-spacing:1px;">6月</div>
+                <div style="font-size:22px;font-weight:700;color:var(--navy2);font-family:'DM Mono',monospace;">中旬</div>
+              </div>
+              <div style="flex:1;border-left:3px solid #e0e5f0;padding-left:16px;">
+                <div style="font-size:13px;font-weight:700;color:#aab;">Webテスト（玉手箱）</div>
+                <div style="font-size:11.5px;color:#c0c8dd;line-height:1.6;">ES選考通過者に受験URLをメールでお送りします。自宅受験可・期間3日間。</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:stretch;padding:14px 0;border-bottom:1px solid #f0f3fa;">
+              <div style="width:80px;flex-shrink:0;text-align:center;">
+                <div style="font-size:10px;color:var(--muted);letter-spacing:1px;">7月</div>
+                <div style="font-size:22px;font-weight:700;color:var(--navy2);font-family:'DM Mono',monospace;">上旬</div>
+              </div>
+              <div style="flex:1;border-left:3px solid #e0e5f0;padding-left:16px;">
+                <div style="font-size:13px;font-weight:700;color:#aab;">1次面接（オンライン）</div>
+                <div style="font-size:11.5px;color:#c0c8dd;line-height:1.6;">花壇コンサル部門人事担当者との面接。30分程度。Zoom使用。</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:stretch;padding:14px 0;border-bottom:1px solid #f0f3fa;">
+              <div style="width:80px;flex-shrink:0;text-align:center;">
+                <div style="font-size:10px;color:var(--muted);letter-spacing:1px;">8月</div>
+                <div style="font-size:22px;font-weight:700;color:var(--navy2);font-family:'DM Mono',monospace;">上旬</div>
+              </div>
+              <div style="flex:1;border-left:3px solid #e0e5f0;padding-left:16px;">
+                <div style="font-size:13px;font-weight:700;color:#aab;">GD・最終面接</div>
+                <div style="font-size:11.5px;color:#c0c8dd;line-height:1.6;">大手町本社にてグループディスカッション＋役員面接（同日）。交通費支給。</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:stretch;padding:14px 0;">
+              <div style="width:80px;flex-shrink:0;text-align:center;">
+                <div style="font-size:10px;color:var(--muted);letter-spacing:1px;">9月</div>
+                <div style="font-size:22px;font-weight:700;color:var(--navy2);font-family:'DM Mono',monospace;">上旬</div>
+              </div>
+              <div style="flex:1;border-left:3px solid #e0e5f0;padding-left:16px;">
+                <div style="font-size:13px;font-weight:700;color:#aab;">内定通知</div>
+                <div style="font-size:11.5px;color:#c0c8dd;line-height:1.6;">内定者には順次電話・メールにてご連絡します。内定式は10月1日予定。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTICES section -->
+    <div id="sec-notices" class="page-section">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">お知らせ一覧</div>
+          <span class="card-badge">4件</span>
+        </div>
+        <div class="card-body">
+          <div class="notice-list">
+            <div class="notice-item" style="border-left-color:var(--red);">
+              <div class="notice-icon" style="background:var(--red);">
+                <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 2v4.5M6 9.5v.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </div>
+              <div class="notice-body">
+                <div class="notice-title">ESの提出期限について<span class="new-badge">NEW</span></div>
+                <div class="notice-desc">5月10日（土）23:59が提出期限です。システムメンテナンスにより23:00以降は接続しにくくなる場合があります。早めのご提出をお願いします。</div>
+                <div class="notice-date">2026年4月26日</div>
+              </div>
+            </div>
+            <div class="notice-item">
+              <div class="notice-icon">
+                <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="4.5" stroke="#fff" stroke-width="1.3"/><path d="M6 4v2l1.5 1.5" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>
+              </div>
+              <div class="notice-body">
+                <div class="notice-title">花壇コンサル部門 先輩社員座談会のご案内<span class="new-badge">NEW</span></div>
+                <div class="notice-desc">花壇再開発・空き地バリューアップの最前線で活躍する先輩社員と話せる座談会（各回10名限定）を5月に開催。申し込みは「説明会・セミナー」タブから。</div>
+                <div class="notice-date">2026年4月20日</div>
+              </div>
+            </div>
+            <div class="notice-item">
+              <div class="notice-icon">
+                <svg width="12" height="12" viewBox="0 0 12 12"><rect x="1.5" y="2" width="9" height="8" rx="1" stroke="#fff" stroke-width="1.2"/><path d="M3.5 5h5M3.5 7h3" stroke="#fff" stroke-width="1" stroke-linecap="round"/></svg>
+              </div>
+              <div class="notice-body">
+                <div class="notice-title">2027年度採用 募集要項を更新しました</div>
+                <div class="notice-desc">花壇コンサルタント・空き地バリューアップ部門・八百屋JV推進職の詳細および配属予定部門・採用予定人数を更新しました。企業サイトからもご確認いただけます。</div>
+                <div class="notice-date">2026年4月10日</div>
+              </div>
+            </div>
+            <div class="notice-item">
+              <div class="notice-icon">
+                <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6h8M7 3.5L9.5 6 7 8.5" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="notice-body">
+                <div class="notice-title">会社説明会（第3回）の録画映像を公開しました</div>
+                <div class="notice-desc">第3回説明会（4月15日実施）の録画をマイページ内でご視聴いただけます。脚立コンサルティング事業の詳細説明も含まれています。</div>
+                <div class="notice-date">2026年4月17日</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ section -->
+    <div id="sec-faq" class="page-section">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">よくあるご質問</div>
+        </div>
+        <div class="card-body">
+          <div id="faq-list"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /LEFT -->
+
+  <!-- RIGHT SIDEBAR -->
+  <div>
+
+    <!-- プロフィール -->
+    <div class="profile-card">
+      <div class="profile-top">
+        <div class="avatar">鍬農</div>
+        <div class="profile-name">鍬農 侑祐</div>
+        <div class="profile-sub">2027年度 新卒採用</div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row">
+          <span class="profile-label">応募ID</span>
+          <span class="profile-val" style="font-family:'DM Mono',monospace; color:var(--gold2); font-weight:700; font-size:12.5px;">PK-270847</span>
+        </div>
+        <div class="profile-row">
+          <span class="profile-label">職種</span>
+          <span class="profile-val">総合職</span>
+        </div>
+        <div class="profile-row">
+          <span class="profile-label">業務コース</span>
+          <span class="profile-val">花壇コンサルタント</span>
+        </div>
+        <div class="profile-row">
+          <span class="profile-label">卒業予定</span>
+          <span class="profile-val">2027年3月</span>
+        </div>
+        <div class="profile-row">
+          <span class="profile-label">メール</span>
+          <span class="profile-val" style="font-size:10.5px;">kuwa.y@example.ac.jp</span>
+        </div>
+        <div class="profile-row">
+          <span class="profile-label">電話</span>
+          <span class="profile-val">090-****-8472</span>
+        </div>
+      </div>
+      <div style="padding:0 16px 14px;">
+        <button class="profile-edit" onclick="showToast('プロフィール編集ページを開いています...')">プロフィール編集</button>
+      </div>
+    </div>
+
+    <!-- 企業サイト -->
+    <div class="corp-card">
+      <div class="corp-card-label">CORPORATE SITE</div>
+      <div class="corp-card-name">プレキコンサルティング</div>
+      <div class="corp-card-desc">花壇再開発・空き地バリューアップ・八百屋JV・脚立コンサルの最前線へ</div>
+      <button class="corp-card-btn" onclick="openCorpSite()">
+        <span>🌿</span> 企業サイトを見る
+      </button>
+    </div>
+
+    <!-- 締切カウントダウン -->
+    <div class="deadline-box">
+      <div class="deadline-label">ES提出締切まで</div>
+      <div class="deadline-date" id="countdown">計算中...</div>
+      <div class="deadline-sub">2026年5月10日（土）23:59</div>
+    </div>
+
+    <!-- URL -->
+    <div class="url-box">
+      <div class="url-label">あなた専用のマイページURL</div>
+      <div class="url-val">https://preki-recruit.jp/my/PK-270847</div>
+    </div>
+
+    <!-- 次のアクション -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">次のアクション</div>
+      </div>
+      <div class="card-body">
+        <button class="btn-gold" onclick="openESModal()">📝 ESを提出する</button>
+        <button class="btn-outline" onclick="openSeminarModal()">🌿 説明会・座談会を予約する</button>
+        <button class="btn-corp" onclick="openCorpSite()">🏢 企業サイト・募集要項を見る</button>
+      </div>
+    </div>
+
+    <!-- 採用担当 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">採用担当者への連絡</div>
+      </div>
+      <div class="card-body" style="font-size:12px;color:var(--muted);line-height:1.8;">
+        <p>選考に関するご不明点は下記へ。</p>
+        <p style="margin-top:10px;font-weight:700;color:var(--navy);font-size:12.5px;">人事部 採用事務局</p>
+        <p style="color:var(--navy2);">recruit2027@preki-consulting.co.jp</p>
+        <p style="margin-top:4px;color:#bbc;font-size:11px;">受付時間：平日 10:00〜17:00</p>
+      </div>
+    </div>
+
+  </div><!-- /RIGHT -->
+</div><!-- /main-wrap -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>プレキコンサルティング株式会社　新卒採用事務局</p>
+  <p>〒100-0005 東京都千代田区丸の内2-7-3 東京ビルディング22F</p>
+  <p>Tel: 03-XXXX-XXXX（採用専用）　|　recruit2027@preki-consulting.co.jp</p>
+  <p style="margin-top:6px;">© 2026 Preki Consulting Inc. All rights reserved. | <a href="#" onclick="openCorpSite();return false;">企業サイト</a></p>
+</div>
+
+</div><!-- /mainApp -->
+
+<!-- ===== ES MODAL ===== -->
+<div class="modal-overlay" id="esModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <div class="modal-head-title">エントリーシート入力</div>
+        <div class="modal-head-sub">各設問 800字以内 ／ 自動保存対応</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('esModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tabs">
+        <div class="modal-tab active" onclick="switchESTab(1, this)">設問 1</div>
+        <div class="modal-tab" onclick="switchESTab(2, this)">設問 2</div>
+        <div class="modal-tab" onclick="switchESTab(3, this)">設問 3</div>
+        <div class="modal-tab" onclick="switchESTab(4, this)">確認・提出</div>
+      </div>
+
+      <div id="es-tab-1">
+        <div class="es-q">
+          <div class="es-q-num">1</div>
+          <div class="es-q-text">志望動機をお聞かせください。</div>
+          <div class="es-q-sub">プレキコンサルティングを志望する理由と、花壇コンサルタントというキャリアを選んだ背景についてお書きください。（800字以内）</div>
+          <textarea class="es-textarea" id="es1" placeholder="花壇の再開発や空き地のバリューアップを通じて..." oninput="updateChar('es1','c1')"></textarea>
+          <div class="char-count" id="c1">0 / 800</div>
+        </div>
+      </div>
+
+      <div id="es-tab-2" style="display:none;">
+        <div class="es-q">
+          <div class="es-q-num">2</div>
+          <div class="es-q-text">学生時代に最も力を入れて取り組んだことをお書きください。</div>
+          <div class="es-q-sub">取り組みの背景・課題・あなた自身の行動・成果を具体的に記述してください。（800字以内）</div>
+          <textarea class="es-textarea" id="es2" placeholder="私が最も力を入れて取り組んだことは..." oninput="updateChar('es2','c2')"></textarea>
+          <div class="char-count" id="c2">0 / 800</div>
+        </div>
+      </div>
+
+      <div id="es-tab-3" style="display:none;">
+        <div class="es-q">
+          <div class="es-q-num">3</div>
+          <div class="es-q-text">花壇コンサルタントとしてどのような価値を社会に提供したいですか。</div>
+          <div class="es-q-sub">花壇再開発・空き地バリューアップ・八百屋とのJV・脚立を活用した自社内コンサルなど、プレキの事業フィールドを踏まえてお書きください。（800字以内）</div>
+          <textarea class="es-textarea" id="es3" placeholder="私は花壇コンサルタントとして..." oninput="updateChar('es3','c3')"></textarea>
+          <div class="char-count" id="c3">0 / 800</div>
+        </div>
+      </div>
+
+      <div id="es-tab-4" style="display:none;">
+        <div style="background:#f8f9fd;border:1px solid var(--border);border-radius:2px;padding:20px;margin-bottom:20px;">
+          <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:16px;">提出前の確認</div>
+          <div id="es-confirm-list" style="display:flex;flex-direction:column;gap:12px;font-size:12.5px;">
+          </div>
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);line-height:1.8;margin-bottom:18px;">
+          ※ 提出後の修正は2026年5月10日（土）23:00まで可能です。<br>
+          ※ 提出をもって選考に同意したものとみなします。
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="es-draft-btn" onclick="saveESDraft()">下書き保存</button>
+          <button class="es-save-btn" onclick="submitES()">エントリーシートを提出する →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== SEMINAR MODAL ===== -->
+<div class="modal-overlay" id="seminarModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <div class="modal-head-title">説明会・セミナー予約</div>
+        <div class="modal-head-sub">花壇コンサル部門主催イベント / 2026年5〜6月開催</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('seminarModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:18px;line-height:1.7;">
+        ご都合のよい日程を選択し「予約する」ボタンを押してください。確認メールが自動送信されます。
+        変更・キャンセルは開催3日前までマイページから可能です。
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-head">
+          <div class="seminar-title">🌿 花壇コンサル部門 事業説明会（オンライン）</div>
+          <span class="seminar-tag s-open">受付中</span>
+        </div>
+        <div class="seminar-body">
+          <div class="seminar-info">
+            <strong>第1回：5月14日（木） 19:00〜20:30</strong><br>
+            花壇再開発事業・空き地バリューアップ戦略について部門長が詳しく解説。質疑応答あり。Zoom使用。
+          </div>
+          <div style="text-align:right;">
+            <div class="seminar-capacity">残り <b id="cap1">7</b> / 20名</div>
+            <button class="reserve-btn can" id="rbtn1" onclick="reserveSeminar(1)">予約する</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-head">
+          <div class="seminar-title">🥬 八百屋JV推進部門 座談会（オンライン）</div>
+          <span class="seminar-tag s-open">受付中</span>
+        </div>
+        <div class="seminar-body">
+          <div class="seminar-info">
+            <strong>5月21日（木） 19:00〜20:00</strong><br>
+            八百屋とのJV事業推進を担う若手社員（3〜5年目）との少人数座談会。10名限定、質問何でもOK。
+          </div>
+          <div style="text-align:right;">
+            <div class="seminar-capacity">残り <b id="cap2">4</b> / 10名</div>
+            <button class="reserve-btn can" id="rbtn2" onclick="reserveSeminar(2)">予約する</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-head">
+          <div class="seminar-title">🪜 脚立コンサルティング 現場見学ツアー（対面）</div>
+          <span class="seminar-tag s-reserved">予約済</span>
+        </div>
+        <div class="seminar-body">
+          <div class="seminar-info">
+            <strong>5月28日（水） 14:00〜17:00 ／ 大手町本社</strong><br>
+            脚立を活用した自社内コンサルの実際の現場を見学。プロジェクトリーダーによる解説付き。交通費支給。
+          </div>
+          <div style="text-align:right;">
+            <div class="seminar-capacity">残り <b>2</b> / 15名</div>
+            <button class="reserve-btn reserved">予約済み ✓</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-head">
+          <div class="seminar-title">🏗 空き地バリューアップ 先輩社員座談会（オンライン）</div>
+          <span class="seminar-tag s-full">満員</span>
+        </div>
+        <div class="seminar-body">
+          <div class="seminar-info">
+            <strong>6月4日（木） 19:00〜20:30</strong><br>
+            空き地バリューアップ部門のシニアコンサルタントとの少人数対話。次回開催をお待ちください。
+          </div>
+          <div style="text-align:right;">
+            <div class="seminar-capacity">残り <b>0</b> / 10名</div>
+            <button class="reserve-btn full">満員</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-head">
+          <div class="seminar-title">🌿 総合職 採用担当者と話そう会（オンライン）</div>
+          <span class="seminar-tag s-open">受付中</span>
+        </div>
+        <div class="seminar-body">
+          <div class="seminar-info">
+            <strong>6月11日（水） 12:00〜13:00</strong><br>
+            採用担当者（人事部）に選考・仕事内容について何でも質問できる昼休み座談会。少人数形式。
+          </div>
+          <div style="text-align:right;">
+            <div class="seminar-capacity">残り <b id="cap3">9</b> / 10名</div>
+            <button class="reserve-btn can" id="rbtn3" onclick="reserveSeminar(3)">予約する</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== CORP SITE OVERLAY ===== -->
+<div id="corpSiteOverlay">
+  <div class="corp-site-header">
+    <div class="corp-site-logo">
+      <div class="corp-site-mark">
+        <svg viewBox="0 0 20 20" fill="none">
+          <rect x="3" y="12" width="4" height="6" fill="#c8a84b"/>
+          <rect x="8" y="8" width="4" height="10" fill="#c8a84b" opacity="0.8"/>
+          <rect x="13" y="5" width="4" height="13" fill="#c8a84b" opacity="0.6"/>
+          <path d="M2 12 Q10 4 18 5" stroke="#fff" stroke-width="1.2" fill="none" opacity="0.5"/>
+        </svg>
+      </div>
+      <div>
+        <div class="corp-site-brand">PREKI CONSULTING</div>
+        <div class="corp-site-brand-en">CORPORATION WEBSITE</div>
+      </div>
+    </div>
+    <button class="corp-site-close" onclick="closeCorpSite()">← マイページに戻る</button>
+  </div>
+  <div class="corp-site-nav">
+    <a href="#">事業紹介</a>
+    <a href="#">花壇再開発</a>
+    <a href="#">空き地・JV</a>
+    <a href="#">脚立コンサル</a>
+    <a href="#">採用情報</a>
+    <a href="#">会社概要</a>
+  </div>
+  <div class="corp-site-hero">
+    <div style="position:relative;z-index:1;">
+      <div class="corp-hero-tag">PREKI CONSULTING — SINCE 2008</div>
+      <div class="corp-hero-title">花壇から、<span>都市を変える。</span></div>
+      <div class="corp-hero-sub">
+        花壇の再開発・空き地のバリューアップ・八百屋とのJV推進、そして脚立コンサルティング。<br>
+        プレキは、誰も注目しなかった「余白」に価値を生み出す会社です。
+      </div>
+      <button class="corp-cta-btn" onclick="closeCorpSite(); openSeminarModal();">採用説明会に申し込む</button>
+    </div>
+  </div>
+  <div class="corp-site-body">
+    <div class="corp-section-title">私たちの事業</div>
+    <div class="corp-section-sub">
+      プレキコンサルティングは、不動産・農業・流通・施設管理という異分野を横断し、<br>
+      「まだ誰も気づいていない価値」を掘り起こすことに特化したコンサルティングファームです。
+    </div>
+    <div class="corp-biz-grid">
+      <div class="corp-biz-card" style="--clr:#4a8a4a;">
+        <div class="corp-biz-icon">🌸</div>
+        <div class="corp-biz-name">花壇再開発コンサルティング</div>
+        <div class="corp-biz-desc">都市部の放置された花壇・公開空地を高付加価値スペースへ再生。区市町村・デベロッパーとの三者連携型プロジェクトを多数手掛ける。</div>
+        <span class="corp-biz-tag">実績 140件以上</span>
+      </div>
+      <div class="corp-biz-card" style="--clr:#8a6020;">
+        <div class="corp-biz-icon">🏗</div>
+        <div class="corp-biz-name">空き地バリューアップ戦略</div>
+        <div class="corp-biz-desc">遊休地・未利用地を市場分析・用途転換提案で収益資産に変換。大手不動産会社との協同実績多数。三井・森系案件にも参画。</div>
+        <span class="corp-biz-tag">累計案件 320件</span>
+      </div>
+      <div class="corp-biz-card" style="--clr:#c8a84b;">
+        <div class="corp-biz-icon">🥬</div>
+        <div class="corp-biz-name">八百屋JVプラットフォーム</div>
+        <div class="corp-biz-desc">地域八百屋との合弁事業を通じた地産地消エコシステム構築。農業・流通・不動産を一体的に組み合わせた独自のビジネスモデル。</div>
+        <span class="corp-biz-tag">JV組成数 28件</span>
+      </div>
+      <div class="corp-biz-card" style="--clr:#5a7acc;">
+        <div class="corp-biz-icon">🪜</div>
+        <div class="corp-biz-name">脚立コンサルティング（社内特化型）</div>
+        <div class="corp-biz-desc">脚立を中心とした施設高所管理・視点変革メソッドを活用した自社独自の内部変革コンサル。「高さを変えることで見えるものが変わる」哲学に基づく。</div>
+        <span class="corp-biz-tag">特許取得済メソッド</span>
+      </div>
+    </div>
+
+    <div class="corp-section-title">数字で見るプレキ</div>
+    <div class="corp-section-sub">2025年度実績</div>
+    <div class="corp-data-row">
+      <div class="corp-data-item">
+        <div class="corp-data-num">320<span class="corp-data-unit">件</span></div>
+        <div class="corp-data-label">累計コンサル実績</div>
+      </div>
+      <div class="corp-data-item">
+        <div class="corp-data-num">28<span class="corp-data-unit">組</span></div>
+        <div class="corp-data-label">八百屋JV組成数</div>
+      </div>
+      <div class="corp-data-item">
+        <div class="corp-data-num">140<span class="corp-data-unit">件</span></div>
+        <div class="corp-data-label">花壇再開発完了数</div>
+      </div>
+      <div class="corp-data-item">
+        <div class="corp-data-num">97<span class="corp-data-unit">%</span></div>
+        <div class="corp-data-label">クライアント継続率</div>
+      </div>
+    </div>
+
+    <div class="corp-recruit-banner" onclick="closeCorpSite()">
+      <div class="corp-recruit-banner-title">2027年度 新卒採用 エントリー受付中</div>
+      <div class="corp-recruit-banner-sub">花壇コンサルタント・空き地バリューアップ部門・八百屋JV推進職 etc.</div>
+      <div class="corp-recruit-btn">マイページに戻って応募する</div>
+    </div>
+  </div>
+  <div class="corp-site-footer">
+    <p>プレキコンサルティング株式会社</p>
+    <p>〒100-0005 東京都千代田区丸の内2-7-3 東京ビルディング22F</p>
+    <p>© 2026 Preki Consulting Inc. All rights reserved.</p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== LOGIN =====
+function doLogin() {
+  var id = document.getElementById('loginId').value.trim();
+  var pass = document.getElementById('loginPass').value.trim();
+  var err = document.getElementById('loginError');
+  if (id === 'PK-270847' && pass === 'preki2027') {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainApp').classList.add('show');
+    updateCountdown();
+    buildFAQ();
+  } else {
+    err.classList.add('show');
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginPass').focus();
+  }
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    if (!document.getElementById('loginScreen').classList.contains('hidden')) doLogin();
+  }
+});
+function doLogout() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('mainApp').classList.remove('show');
+  document.getElementById('loginId').value = '';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginError').classList.remove('show');
+}
+
+// ===== NAV =====
+function switchTab(name, el) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.subnav-item').forEach(s => s.classList.remove('active'));
+  var sec = document.getElementById('sec-' + name);
+  if (sec) sec.classList.add('active');
+  if (el) el.classList.add('active');
+}
+
+// ===== COUNTDOWN =====
+function updateCountdown() {
+  var deadline = new Date('2026-05-10T23:59:00+09:00');
+  var now = new Date();
+  var diff = deadline - now;
+  var el = document.getElementById('countdown');
+  if (!el) return;
+  if (diff <= 0) { el.textContent = '期限終了'; return; }
+  var d = Math.floor(diff / 86400000);
+  var h = Math.floor((diff % 86400000) / 3600000);
+  var m = Math.floor((diff % 3600000) / 60000);
+  el.textContent = 'あと ' + d + '日 ' + h + '時間 ' + m + '分';
+}
+setInterval(updateCountdown, 30000);
+
+// ===== MODALS =====
+function openESModal() { document.getElementById('esModal').classList.add('open'); }
+function openSeminarModal() { document.getElementById('seminarModal').classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(function(m) {
+  m.addEventListener('click', function(e) { if (e.target === m) m.classList.remove('open'); });
+});
+
+// ===== ES TABS =====
+function switchESTab(n, el) {
+  for (var i = 1; i <= 4; i++) {
+    var tab = document.getElementById('es-tab-' + i);
+    if (tab) tab.style.display = i === n ? 'block' : 'none';
+  }
+  document.querySelectorAll('.modal-tab').forEach(function(t) { t.classList.remove('active'); });
+  if (el) el.classList.add('active');
+  if (n === 4) buildESConfirm();
+}
+
+function updateChar(taId, countId) {
+  var v = document.getElementById(taId).value.length;
+  var el = document.getElementById(countId);
+  el.textContent = v + ' / 800';
+  el.className = 'char-count' + (v > 800 ? ' over' : '');
+}
+
+function buildESConfirm() {
+  var qs = [
+    {q:'志望動機', id:'es1'},
+    {q:'学生時代の取り組み', id:'es2'},
+    {q:'花壇コンサルタントとして提供したい価値', id:'es3'}
+  ];
+  var html = '';
+  qs.forEach(function(q, i) {
+    var val = (document.getElementById(q.id).value || '').trim();
+    var len = val.length;
+    var status = len === 0 ? '<span style="color:var(--red);font-size:11px;">未入力</span>' :
+                 len > 800 ? '<span style="color:var(--red);font-size:11px;">800字超過</span>' :
+                 '<span style="color:var(--green);font-size:11px;">✓ ' + len + '字</span>';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fff;border:1px solid var(--border);">';
+    html += '<span style="font-weight:700;color:var(--navy);">設問' + (i+1) + '：' + q.q + '</span>' + status;
+    html += '</div>';
+  });
+  document.getElementById('es-confirm-list').innerHTML = html;
+}
+
+function saveESDraft() { showToast('下書きを保存しました'); }
+function submitES() {
+  var all = ['es1','es2','es3'].every(function(id) {
+    var v = document.getElementById(id).value.trim();
+    return v.length > 0 && v.length <= 800;
+  });
+  if (!all) { showToast('未入力または800字超過の設問があります'); return; }
+  closeModal('esModal');
+  showToast('エントリーシートを提出しました！ご応募ありがとうございます。');
+}
+
+// ===== SEMINAR =====
+var reserved = {1: false, 2: false, 3: false};
+var caps = {1: 7, 2: 4, 3: 9};
+function reserveSeminar(n) {
+  if (reserved[n]) return;
+  reserved[n] = true;
+  caps[n]--;
+  var btn = document.getElementById('rbtn' + n);
+  btn.className = 'reserve-btn reserved';
+  btn.textContent = '予約済み ✓';
+  var capEl = document.getElementById('cap' + n);
+  if (capEl) capEl.textContent = caps[n];
+  showToast('説明会を予約しました。確認メールをお送りします。');
+}
+
+// ===== CORP SITE =====
+function openCorpSite() { document.getElementById('corpSiteOverlay').classList.add('open'); window.scrollTo(0,0); }
+function closeCorpSite() { document.getElementById('corpSiteOverlay').classList.remove('open'); }
+
+// ===== TOAST =====
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 3200);
+}
+
+// ===== FAQ =====
+var faqs = [
+  {q:'花壇コンサルタントの具体的な仕事内容を教えてください。', a:'花壇の再開発計画の立案から行政・クライアントとの折衝、施工管理サポートまで一貫して担当します。入社1〜2年目は先輩社員のもとでOJTを受け、3年目以降はプロジェクトリーダーとして案件を主導します。'},
+  {q:'文系・理系どちらでも応募できますか？', a:'はい、学部・学科不問です。2026年度入社の花壇コンサルタント内定者は文系7割・理系3割です。論理的思考力とコミュニケーション力を重視しています。'},
+  {q:'選考において「脚立コンサルティング」の知識は必要ですか？', a:'選考時点での知識は不要です。入社後の研修プログラムで習得できます。ただし、高さへの恐怖心がないことは確認させていただく場合があります。'},
+  {q:'八百屋JV部門と花壇コンサルタント部門の違いは何ですか？', a:'花壇コンサルは不動産・空間系の案件が中心、八百屋JVは農業・流通・地域コミュニティとの連携が中心です。入社後の配属先は希望と適性を考慮して決定します。'},
+  {q:'転勤はありますか？', a:'総合職は転勤の可能性があります。現在の主要拠点は東京（大手町）・大阪・福岡です。海外案件も増加中で、将来的な海外赴任の可能性もあります。'},
+];
+function buildFAQ() {
+  var html = faqs.map(function(f, i) {
+    return '<div style="border:1px solid var(--border);margin-bottom:10px;border-radius:2px;">' +
+      '<div style="padding:14px 16px;font-weight:700;color:var(--navy);font-size:12.5px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;" onclick="toggleFAQ(' + i + ')">' +
+      '<span>Q. ' + f.q + '</span><span id="faq-arrow-' + i + '" style="font-size:14px;color:var(--muted);transition:transform 0.2s;">▾</span></div>' +
+      '<div id="faq-ans-' + i + '" style="display:none;padding:0 16px 14px;font-size:12px;color:var(--muted);line-height:1.8;border-top:1px solid var(--border);">A. ' + f.a + '</div></div>';
+  }).join('');
+  document.getElementById('faq-list').innerHTML = html;
+}
+function toggleFAQ(i) {
+  var el = document.getElementById('faq-ans-' + i);
+  var ar = document.getElementById('faq-arrow-' + i);
+  var open = el.style.display !== 'none';
+  el.style.display = open ? 'none' : 'block';
+  ar.style.transform = open ? '' : 'rotate(180deg)';
+}
+</script>
+</body>
+</html>
